@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    /* #F9FAFB Mist White */
+    --background: 40 67% 98%;
+    /* #fdfbf7 Beige */
     --foreground: 210 24% 16%;
     /* #1F2933 Slate Text */
 
@@ -49,7 +49,8 @@
   }
 
   .dark {
-    --background: 222.2 47.4% 11.2%;
+    --background: 40 30% 95%;
+    /* Very light beige-grey for dark mode base */
     --foreground: 210 40% 98%;
     --card: 215 27.9% 16.9%;
     --card-foreground: 210 40% 98%;
@@ -72,6 +73,12 @@
 
   * {
     @apply border-border;
+  }
+
+  html,
+  body {
+    background-color: #fdfbf7;
+    min-height: 100vh;
   }
 
   body {

@@ -1,13 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <!-- Background circle purple -->
-  <circle cx="100" cy="100" r="100" fill="#8e44ad"/>
-  
-  <!-- Three blue arms -->
-  <path d="M100,100 L100,0 A100,100 0 0,0 0,100 Z" fill="#1f618d"/>
-  <path d="M100,100 L200,100 A100,100 0 0,0 100,0 Z" fill="#1f618d"/>
-  <path d="M100,100 L0,100 A100,100 0 0,0 100,200 Z" fill="#1f618d"/>
-  
-  <!-- Star in center -->
-  <circle cx="100" cy="100" r="30" fill="#ffffff"/>
-  <polygon points="100,80 107,95 123,95 110,105 115,120 100,110 85,120 90,105 77,95 93,95" fill="#3498db"/>
+  <defs>
+    <clipPath id="circle-clip">
+      <circle cx="100" cy="100" r="98" />
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#circle-clip)">
+    <!-- Purple background -->
+    <circle cx="100" cy="100" r="98" fill="#85619A"/>
+
+    <!-- 5 White Spokes Base -->
+    <g stroke="white" stroke-width="36">
+      <line x1="100" y1="100" x2="100" y2="200" transform="rotate(0, 100, 100)" />
+      <line x1="100" y1="100" x2="100" y2="200" transform="rotate(72, 100, 100)" />
+      <line x1="100" y1="100" x2="100" y2="200" transform="rotate(144, 100, 100)" />
+      <line x1="100" y1="100" x2="100" y2="200" transform="rotate(216, 100, 100)" />
+      <line x1="100" y1="100" x2="100" y2="200" transform="rotate(288, 100, 100)" />
+    </g>
+
+    <!-- Center White Base -->
+    <circle cx="100" cy="100" r="38" fill="white"/>
+
+    <!-- 5 Dark Blue Spokes -->
+    <g stroke="#004C97" stroke-width="20">
+      <line x1="100" y1="100" x2="100" y2="200" transform="rotate(0, 100, 100)" />
+      <line x1="100" y1="100" x2="100" y2="200" transform="rotate(72, 100, 100)" />
+      <line x1="100" y1="100" x2="100" y2="200" transform="rotate(144, 100, 100)" />
+      <line x1="100" y1="100" x2="100" y2="200" transform="rotate(216, 100, 100)" />
+      <line x1="100" y1="100" x2="100" y2="200" transform="rotate(288, 100, 100)" />
+    </g>
+
+    <!-- Center Dark Blue Ring Base -->
+    <circle cx="100" cy="100" r="30" fill="#004C97"/>
+
+    <!-- Inner White Circle -->
+    <circle cx="100" cy="100" r="18" fill="white"/>
+
+    <!-- Inner Light Blue Star -->
+    <polygon points="100,86 103.14,95.67 113.32,95.67 105.09,101.65 108.23,111.33 100,105.35 91.77,111.33 94.91,101.65 86.68,95.67 96.86,95.67" fill="#009AEF"/>
+  </g>
 </svg>

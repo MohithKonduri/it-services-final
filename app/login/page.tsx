@@ -55,23 +55,31 @@ export default function RoleSelectionPage() {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 px-4 py-12 relative overflow-hidden">
-            {/* Animated Background Elements */}
+        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#fdfbf7] to-[#f5f1e8] dark:from-slate-900 dark:to-slate-800 px-4 py-12 relative overflow-hidden">
+            {/* Animated Background Elements removed for uniform beige theme */}
             <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-40 -right-40 w-80 h-80 bg-green-400/20 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-emerald-400/20 rounded-full blur-3xl animate-pulse delay-700"></div>
             </div>
 
             <div className="w-full max-w-6xl relative z-10">
-                {/* Header Section */}
-                <div className="text-center mb-12">
-                    <div className="inline-flex items-center justify-center w-24 h-24 bg-white/90 backdrop-blur-sm rounded-3xl mb-6 shadow-2xl border border-white/20 p-3 hover:scale-105 transition-transform duration-300">
-                        <img
-                            src="/vignan-logo-custom.svg"
-                            alt="Vignan Logo"
-                            className="w-full h-full object-contain drop-shadow-md"
-                        />
+                {/* Institutional Branding - Top Center */}
+                <div className="flex flex-col items-center justify-center mb-12">
+                    <div className="flex items-center gap-6 bg-[#fdfaf6]/90 dark:bg-slate-800/90 backdrop-blur-md rounded-3xl px-8 py-4 shadow-2xl border border-[#e6dcc8]/20 group hover:scale-[1.02] transition-all duration-300">
+                        <div className="w-16 h-16 p-1">
+                            <img
+                                src="/vignan-logo-custom.svg"
+                                alt="Vignan Logo"
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
+                        <div className="flex flex-col text-left">
+                            <h2 className="text-lg md:text-xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight font-sans">
+                                Vignan Institute of Technology and Science
+                            </h2>
+                        </div>
                     </div>
+                </div>
+
+                <div className="text-center mb-12">
                     <h1 className="text-5xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-4">
                         IT Services Asset Management
                     </h1>
@@ -88,7 +96,7 @@ export default function RoleSelectionPage() {
                             <button
                                 key={role.role}
                                 onClick={() => handleRoleSelect(role)}
-                                className="group relative bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 dark:border-slate-700"
+                                className="group relative bg-[#fdfaf6] dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-[#e6dcc8] dark:border-slate-700"
                             >
                                 {/* Gradient Background on Hover */}
                                 <div className={`absolute inset-0 bg-gradient-to-br ${role.gradient} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300`}></div>
@@ -120,7 +128,7 @@ export default function RoleSelectionPage() {
 
                 {/* Footer Info */}
                 <div className="text-center">
-                    <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-full border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <div className="inline-flex items-center gap-2 px-6 py-3 bg-[#fdfaf6]/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-full border border-[#e6dcc8] dark:border-slate-700 shadow-sm">
                         <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
