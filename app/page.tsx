@@ -17,25 +17,65 @@ export default function Home() {
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
             </div>
 
-            <div className="relative z-10 w-full max-w-5xl flex flex-col items-center justify-center pt-12">
-                {/* Logo Section - Matching Login Page */}
-                {/* Institutional Branding - Top Center */}
-                <div className="flex flex-col items-center justify-center mb-12">
-                    <div className="flex items-center gap-6 bg-[#fdfaf6]/90 dark:bg-slate-800/90 backdrop-blur-md rounded-3xl px-8 py-4 shadow-2xl border border-[#e6dcc8]/20 group hover:scale-[1.02] transition-all duration-500">
-                        <div className="w-16 h-16 p-1">
-                            <img
-                                src="/vignan-logo-custom.svg"
-                                alt="Vignan Logo"
-                                className="w-full h-full object-contain"
-                            />
-                        </div>
-                        <div className="flex flex-col">
-                            <h2 className="text-lg md:text-xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight font-sans">
-                                Vignan Institute of Technology and Science
-                            </h2>
-                        </div>
+            {/* Top Full-Width Header */}
+            <header className="w-full sticky top-0 z-50 bg-[#fdfbf7]/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-800/50 py-6 px-4 md:px-12 flex items-center justify-center overflow-hidden">
+                <div className="flex items-center gap-4 md:gap-8 group cursor-default w-full justify-center">
+                    <motion.div
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                        className="w-12 h-12 md:w-16 md:h-16 flex-shrink-0 transition-transform duration-500 group-hover:rotate-[360deg]"
+                    >
+                        <img
+                            src="/vignan-logo-custom.svg"
+                            alt="Vignan Logo"
+                            className="w-full h-full object-contain"
+                        />
+                    </motion.div>
+                    <div className="flex flex-col items-center md:items-start max-w-full overflow-hidden">
+                        <motion.h2
+                            initial="hidden"
+                            animate="visible"
+                            variants={{
+                                visible: {
+                                    transition: {
+                                        staggerChildren: 0.02,
+                                        delayChildren: 0.1,
+                                    }
+                                }
+                            }}
+                            className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white leading-tight font-sans flex whitespace-nowrap"
+                        >
+                            {"Vignan Institute of Technology and Science".split("").map((char, index) => (
+                                <motion.span
+                                    key={index}
+                                    variants={{
+                                        hidden: { opacity: 0, y: 10, filter: "blur(8px)" },
+                                        visible: {
+                                            opacity: 1,
+                                            y: 0,
+                                            filter: "blur(0px)",
+                                            transition: { type: "spring", stiffness: 200, damping: 12 }
+                                        }
+                                    }}
+                                    className={char === " " ? "mr-1 md:mr-3" : ""}
+                                >
+                                    {char}
+                                </motion.span>
+                            ))}
+                        </motion.h2>
+                        <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "100%" }}
+                            transition={{ delay: 1.5, duration: 1 }}
+                            className="h-1 bg-gradient-to-r from-transparent via-slate-900/20 dark:via-white/20 to-transparent mt-1"
+                        />
                     </div>
                 </div>
+            </header>
+
+            <div className="relative z-10 w-full max-w-5xl flex flex-col items-center justify-center pt-8">
+                {/* Logo Section - Removed from here as it's now in Header above */}
 
                 <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 dark:from-white dark:via-slate-200 dark:to-slate-300 bg-clip-text text-transparent mb-6">
                     IT Services Asset Management
