@@ -49,6 +49,10 @@ export default function DeanDashboard() {
     // Form States
     const [requestForm, setRequestForm] = useState({ title: "", description: "", type: "NEW_SYSTEM", priority: "NORMAL" });
     const [assignForm, setAssignForm] = useState({ labId: "", inchargeId: "" });
+    const [remarks, setRemarks] = useState("");
+    const [labCode, setLabCode] = useState("");
+    const [labCapacity, setLabCapacity] = useState("");
+    const [labLocation, setLabLocation] = useState("");
     const [submitting, setSubmitting] = useState(false);
 
     const handleRaiseRequest = async (e: React.FormEvent) => {
@@ -105,6 +109,40 @@ export default function DeanDashboard() {
             }
         } catch (error) {
             console.error("Failed to assign incharge", error);
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    const handleStatusUpdate = async (id: string, status: string) => {
+        setSubmitting(true);
+        try {
+            const res = await fetch(`/api/requests/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    status,
+                    remarks,
+                    labCode,
+                    labCapacity,
+                    labLocation
+                })
+            });
+
+            if (res.ok) {
+                setIsDetailsModalOpen(false);
+                setRemarks("");
+                setLabCode("");
+                setLabCapacity("");
+                setLabLocation("");
+                await mutateRequests();
+            } else {
+                const error = await res.json();
+                alert(error.error || "Failed to update status");
+            }
+        } catch (error) {
+            console.error("Error updating status:", error);
+            alert("An error occurred. Please try again.");
         } finally {
             setSubmitting(false);
         }
@@ -506,9 +544,85 @@ export default function DeanDashboard() {
                                 </div>
                             </div>
 
+                            {selectedRequest.status === "PENDING" && (
+                                    <div className="space-y-4">
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Add Remarks (Optional)</label>
+                                            <textarea
+                                                rows={2}
+                                                className="w-full p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-[#2d6a4f] text-sm"
+                                                placeholder="Add any specific instructions or reasons..."
+                                                value={remarks}
+                                                onChange={e => setRemarks(e.target.value)}
+                                            />
+                                        </div>
+
+                                        {selectedRequest.type === "LAB_SETUP" && (
+                                            <div className="p-6 bg-[#f7e479]/10 rounded-3xl border border-[#f7e479]/30 space-y-4">
+                                                <h4 className="text-[10px] font-black uppercase text-[#8b6b23] tracking-widest">Laboratory Provisioning Details</h4>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="space-y-1">
+                                                        <label className="text-[9px] font-black uppercase text-slate-400">Lab Code/Room</label>
+                                                        <input
+                                                            className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold uppercase focus:ring-2 focus:ring-[#2d6a4f]"
+                                                            placeholder="e.g. CSE-101"
+                                                            value={labCode}
+                                                            onChange={(e) => setLabCode(e.target.value)}
+                                                        />
+                                                    </div>
+                                                    <div className="space-y-1">
+                                                        <label className="text-[9px] font-black uppercase text-slate-400">Max Capacity</label>
+                                                        <input
+                                                            type="number"
+                                                            className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold focus:ring-2 focus:ring-[#2d6a4f]"
+                                                            placeholder="40"
+                                                            value={labCapacity}
+                                                            onChange={(e) => setLabCapacity(e.target.value)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[9px] font-black uppercase text-slate-400">Physical Location</label>
+                                                    <input
+                                                        className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold focus:ring-2 focus:ring-[#2d6a4f]"
+                                                        placeholder="e.g. Block C, 3rd Floor"
+                                                        value={labLocation}
+                                                        onChange={(e) => setLabLocation(e.target.value)}
+                                                    />
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        <div className="grid grid-cols-2 gap-4">
+                                        <button
+                                            disabled={submitting}
+                                            onClick={() => handleStatusUpdate(selectedRequest.id, "APPROVED")}
+                                            className="py-4 bg-[#1b4332] text-white font-black rounded-2xl hover:bg-[#2d6a4f] disabled:opacity-50 flex items-center justify-center gap-2 uppercase tracking-widest text-[10px]"
+                                        >
+                                            {submitting ? <Loader2 className="h-3 w-3 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
+                                            APPROVE
+                                        </button>
+                                        <button
+                                            disabled={submitting}
+                                            onClick={() => handleStatusUpdate(selectedRequest.id, "DECLINED")}
+                                            className="py-4 bg-red-600 text-white font-black rounded-2xl hover:bg-red-700 disabled:opacity-50 flex items-center justify-center gap-2 uppercase tracking-widest text-[10px]"
+                                        >
+                                            {submitting ? <Loader2 className="h-3 w-3 animate-spin" /> : <AlertCircle className="h-4 w-4" />}
+                                            DECLINE
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
                             <button
-                                onClick={() => setIsDetailsModalOpen(false)}
-                                className="w-full py-4 bg-[#1b4332] text-white font-black rounded-2xl hover:bg-[#2d6a4f] uppercase tracking-widest text-[10px]"
+                                onClick={() => {
+                                    setIsDetailsModalOpen(false);
+                                    setRemarks("");
+                                    setLabCode("");
+                                    setLabCapacity("");
+                                    setLabLocation("");
+                                }}
+                                className="w-full py-4 bg-slate-100 text-slate-600 font-black rounded-2xl hover:bg-slate-200 uppercase tracking-widest text-[10px]"
                             >
                                 CLOSE DETAILS
                             </button>
