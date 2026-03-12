@@ -17,17 +17,7 @@ export async function GET(req: NextRequest) {
         };
 
         if (role === "HOD") {
-            const user = await prisma.user.findUnique({
-                where: { id: userId },
-                select: { departmentId: true }
-            });
-            if (user?.departmentId) {
-                where.OR.push({
-                    departmentId: user.departmentId,
-                    details: { not: { contains: "(HOD)" } },
-                    NOT: { details: { contains: "Account Approval" } }
-                });
-            }
+            // HOD sees only their own activities (handled by the default where clause)
         } else if (role === "LAB_INCHARGE") {
             const user = await prisma.user.findUnique({
                 where: { id: userId },

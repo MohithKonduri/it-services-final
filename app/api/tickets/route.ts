@@ -62,18 +62,9 @@ export async function GET(req: NextRequest) {
                 },
             });
         } else if (role === "HOD") {
-            // HOD sees tickets from their department
-            const user = await prisma.user.findUnique({
-                where: { id: userId },
-                select: { departmentId: true },
-            });
-
-            if (!user?.departmentId) {
-                return NextResponse.json({ error: "No department assigned" }, { status: 400 });
-            }
-
+            // HOD sees only tickets they created
             tickets = await prisma.ticket.findMany({
-                where: { departmentId: user.departmentId },
+                where: { createdById: userId },
                 include: {
                     asset: {
                         select: { assetNumber: true, name: true },

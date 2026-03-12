@@ -61,19 +61,10 @@ export async function GET(req: NextRequest) {
                 },
             });
         } else if (role === "HOD") {
-            // HOD sees all requests for their department
-            const user = await prisma.user.findUnique({
-                where: { id: userId },
-                select: { departmentId: true },
-            });
-
-            if (!user?.departmentId) {
-                return NextResponse.json({ error: "No department assigned" }, { status: 400 });
-            }
-
+            // HOD sees only requests they created
             requests = await prisma.request.findMany({
                 where: {
-                    departmentId: user.departmentId,
+                    createdById: userId,
                     type: { not: "ACCOUNT_APPROVAL" }
                 },
                 include: {
