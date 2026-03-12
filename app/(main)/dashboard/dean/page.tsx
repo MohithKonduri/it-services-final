@@ -352,7 +352,7 @@ export default function DeanDashboard() {
                                 }}
                                 className="px-5 py-2.5 bg-[#1b4332] text-white rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-[#2d6a4f] transition-all shadow-lg shadow-[#1b4332]/20"
                             >
-                                Assign Department Head
+                                Assign Lab Incharge
                                 <ArrowRight className="h-4 w-4" />
                             </button>
                         </div>
